@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Hangman Game</title>
-	<link type="text/css" rel="stylesheet" ref="assets/css/reset.css">
+	<link type="text/css" rel="stylesheet" ref=key"assets/css/reset.css">
 	<link type="text/css" rel="stylesheet" ref="assets/css/style.css">
 </head>
 <body>
@@ -18,10 +18,17 @@
  -->
 <!-- main input fields for Hangman Chars  - these will be displayed or hidden based on the word length-->
 <!-- this letterPlaceHolder will hold the __ and letters for the hangman-->
+<!-- <div id="letterHolder"></div> -->
 <div id="letterPlaceHolder"></div>
 <br><div id="userGuess">User Guess
-<input type="text" id="userCurrentGuess">
+<input maxlength="1" type="text" id="userCurrentGuess">
 <div id="displayAllUserGuess"><div>
+</div>
+
+<div>
+	<div class="userMetrics" id="userwins">User Wins<div id="currentwins"></div></div>
+	<div class="userMetrics" id="remainingguesses">Guesses Remaining: <div id="guessesleft"></div></div>
+	
 </div>
 
 
