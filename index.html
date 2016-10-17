@@ -3,32 +3,27 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Hangman Game</title>
+	<link type="text/css" rel="stylesheet" ref="assets/css/reset.css">
+	<link type="text/css" rel="stylesheet" ref="assets/css/style.css">
 </head>
 <body>
 
 <!-- Initializes the game - when the user presses any key the initialisation function xxxx is called to reset variables and begin the game -->
-<div id="hideMe">Press Any Key to Begin<input type="text" id="startGame"></div><!-- <button onkeypress="initHangman()"> -->
+<div id="hideKeyPress">Press Any Key to Begin<input type="text" id="startGame"></div><!-- <button onkeypress="initHangman()"> -->
 <!-- Link to the javascript file containing -->
 
-<h1 id="showMe">HangMan</h1>
+<h1 id="hangmanHeading">HangMan</h1>
 
 <!-- // function(){CarApplication.driveToWork()};
  -->
 <!-- main input fields for Hangman Chars  - these will be displayed or hidden based on the word length-->
-<input type="text" class="letterPlaceHolder">
-<input type="text" class="letterPlaceHolder">
-<input type="text" class="letterPlaceHolder">
-<input type="text" class="letterPlaceHolder">
-<input type="text" class="letterPlaceHolder">
-<input type="text" class="letterPlaceHolder">
-<input type="text" class="letterPlaceHolder">
-<input type="text" class="letterPlaceHolder">
-<input type="text" class="letterPlaceHolder">
-<input type="text" class="letterPlaceHolder">
-<input type="text" class="letterPlaceHolder">
-</br>
-User Guess
+<!-- this letterPlaceHolder will hold the __ and letters for the hangman-->
+<div id="letterPlaceHolder"></div>
+<br><div id="userGuess">User Guess
 <input type="text" id="userCurrentGuess">
+<div id="displayAllUserGuess"><div>
+</div>
+
 
 
 
