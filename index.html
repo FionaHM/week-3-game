@@ -9,7 +9,8 @@
 <body>
 
 <!-- Initializes the game - when the user presses any key the initialisation function xxxx is called to reset variables and begin the game -->
-<div id="hideKeyPress">Press Any Key to Begin<input type="text" id="startGame"></div><!-- <button onkeypress="initHangman()"> -->
+<div id="hideKeyPress">Press Any Key to Begin
+<input type="text" id="startGame"></div><!-- <button onkeypress="initHangman()"> -->
 <!-- Link to the javascript file containing -->
 
 <h1 id="hangmanHeading">HangMan</h1>
@@ -20,19 +21,19 @@
 <!-- this letterPlaceHolder will hold the __ and letters for the hangman-->
 <!-- <div id="letterHolder"></div> -->
 <div id="letterPlaceHolder"></div>
-<br><div id="userGuess">User Guess
-<input maxlength="1" type="text" id="userCurrentGuess">
-<div id="displayAllUserGuess"><div>
-</div>
 
+<br>
+
+<div id="userGuess">User Guess<input maxlength="1" type="text" id="userCurrentGuess"></div>
+
+<div id="displayAllUserGuess"></div>
+
+<div id="messages"></div>
 <div>
-	<div class="userMetrics" id="userwins">User Wins<div id="currentwins"></div></div>
+	<div class="userMetrics" id="userwins">User Wins:<div id="currentwins"></div></div>
+	<div class="userMetrics" id="userwins">Games Played:<div id="currentgames"></div></div>
 	<div class="userMetrics" id="remainingguesses">Guesses Remaining: <div id="guessesleft"></div></div>
-	
 </div>
-
-
-
 
 
 
