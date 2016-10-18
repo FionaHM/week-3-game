@@ -5,7 +5,7 @@ var hangman = {
     lettersGuessed: [],
     numberOfGuesses: 15,
     userWins: 0,
-	listOfWordsPicturesSounds: [["Mayo", "/assets/images/file.jpg"], ["Wexford", "/assets/images/file.jpg"], ["Sligo", "/assets/images/file.jpg"], ["Kilkenny", "/assets/images/file.jpg"], ["Cork","/assets/images/file.jpg"],["Clare","/assets/images/file.jpg"]],  // need to add images here too make 2D Array
+	listOfWordsPicturesSounds: [["MaMDD", "/assets/images/file.jpg"], ["WWLEJJDD", "/assets/images/file.jpg"], ["Sligo", "/assets/images/file.jpg"], ["Kilkenny", "/assets/images/file.jpg"], ["Cork","/assets/images/file.jpg"],["Clare","/assets/images/file.jpg"]],  // need to add images here too make 2D Array
 	currentGameWon : false,
 	currentWord : "",
 
@@ -47,7 +47,6 @@ var hangman = {
 		hangman.userCurrentLetterGuess = document.getElementById("userCurrentGuess").value;
 		// convert to capital case to compare with current word - also capital
 		hangman.userCurrentLetterGuess = hangman.userCurrentLetterGuess.toUpperCase();
-		
 		// reset input box to be empty for next guess
 		document.getElementById("userCurrentGuess").value = "";
 		alert(hangman.currentWord);
@@ -60,19 +59,37 @@ var hangman = {
 			alert("good guess!" );
 			// add to lettersGuessed Array
 			hangman.lettersGuessed.push(hangman.userCurrentLetterGuess);
-			//try to find the position of the current letter in the current word
-			var indexNumWord =hangman.currentWord.indexOf(hangman.userCurrentLetterGuess);
-		//	alert("index of" + hangman.currentWord.indexOf(hangman.userCurrentLetterGuess));
+			//	add this letter to the list all the letters guessed so far
 			addElement("div",hangman.userCurrentLetterGuess, "displayAllUserGuess"); 
+			// there might be more that one instance of this letter in the word so they all need to be found and put in correct place
+			var modifiedWord = hangman.currentWord;
+			while (modifiedWord.includes(hangman.userCurrentLetterGuess)){
+			    //try to find the position of the current letter in the current word
+			    var indexNumWord = modifiedWord.indexOf(hangman.userCurrentLetterGuess);
+                // remove letter from the index position
+
+			      // add the letter to the correct place in the word
+		        document.getElementById("letterPlaceHolder").childNodes[indexNumWord].innerHTML = hangman.userCurrentLetterGuess;
+		       // hangman.currentWord.splice(1, indexNumWord);
+			    // alert(hangman.currentWord + "after splice");
+			    //hangman.currentWord.replace('','');
+			    //starts at 0
+			    modifiedWord = modifiedWord.slice(0, indexNumWord) + "*" + modifiedWord.slice(indexNumWord+1, hangman.currentWord.length);
+			    alert("modified word" + modifiedWord);
+			  
+			    // hangman.currentWord = hangman.currentWord.replaceAt(indexNumWord, hangman.userCurrentLetterGuess);
+			    alert("hello" + hangman.currentWord);
+		   }
+		   hangman.currentWord = modifiedWord;
+			
+		 //   //	alert("index of" + hangman.currentWord.indexOf(hangman.userCurrentLetterGuess));
+			// addElement("div",hangman.userCurrentLetterGuess, "displayAllUserGuess"); 
 			// // display the letter on the hangman placeholder, in the right location!
 			// var x = document.getElementById("letterplaceholder");
-			alert("Current User guess value" + indexNumWord);
-		    // Need to look up how to access child nodes ********working here 
-		    document.getElementById("letterPlaceHolder").childNodes[indexNumWord].innerHTML = hangman.userCurrentLetterGuess;
-		    // document.getElementsByElementId("letterplaceholder")[indexNumWord].innerHTML.replace = hangman.userCurrentLetterGuess;
-
-			// var x = document.getElementById("letterplaceholder");
-			// x.getElementsByElementId("letterplaceholder")[indexWord].innerHTML = hangman.userCurrentLetterGuess;
+			//alert("Current User guess value" + indexNumWord);
+		  
+		    //***  error where first correct letter disappears when "" entered - must fix!!
+		    
 
 		}
 		else{
@@ -103,6 +120,10 @@ function showElementsById(text, textvalue){
     document.getElementById(text).style.display = textvalue;
 }
 
+// from stackoverflow - how to replace a string character at index position - tried splice but it didnt work
+// function replaceAt(index, character) {
+//     return this.substr(0, index) + character + this.substr(index+character.length);
+// }
 // to hide elements by class 
 // function showElementsByClass(text, textvalue){
 // 	document.getElementsByClassName(text).style.display = textvalue;
