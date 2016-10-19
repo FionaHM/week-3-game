@@ -1,5 +1,28 @@
 #letterPlaceHolder {
 	height: 30px;
-	width: 100px;
-	float: left;
+	width: 100%;
+	/*float: left;*/
+}
+
+.container-margin {
+	    margin-top: 100px;
+}
+.margin-underline {
+
+	border-bottom-width: 3px;
+	border-color: white;
+	border-bottom-style: solid;
+	margin-bottom: 30px;
+}
+/*.is-hidden {
+	display: none ; // needs to be set in the program - remove after testing
+}*/
+.is-hidden-info-message {
+	display: none ; // needs to be set in the program - remove after testing
+}
+.letters {
+	display: inline-block;
+}
+.hangman-letters{
+	width: 100%;
 }
