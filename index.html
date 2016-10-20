@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div class="container-fluid text-center margin-underline"><h1 id="hangmanHeading">Halloween Hangman</h1></div> <!-- add some bat animation -->
+<div class="container-fluid text-center margin-underline"><h1 id="hangmanHeading"><img src="assets/images/small_pumpkin.png" class="pumpkin">Halloween Hangman<img src="assets/images/small_pumpkin.png" class="pumpkin"></h1></div> <!-- add some bat animation -->
 <div class="container"> 
 	<div  class="row text-center">
 		<div  id="hideKeyPress">Press Any Key to Begin <br><!-- <input type="text" id="startGame"> --></div>
@@ -54,9 +54,9 @@
  			</div>
 		</div> <!-- end of right col -->
 		<div class="col-md-4 is-hidden">
-   		   <div class="panel hide-img">
+   		   <div class="panel is-hidden hide-img">
 			  <div class="panel-body hide-img">
-			    <img class="hide-img" id="picture" src="#" >
+			    <img class="hide-img" src="assets/images/question.png" id="picture" >
 			  </div>
 			</div>
 			<div class="panel is-hidden">
@@ -99,6 +99,10 @@
 		</div>
 
 </div> 
+<audio id="myAudio">
+  <source src="assets/sounds/Fireworks Finale-SoundBible.com-370363529.wav" type="audio/ogg">
+</audio>
+
 
 <script type="text/javascript" src="assets/javascript/game.js"></script>
 

@@ -4,6 +4,7 @@ var gameOver = false;
 var itemNumber;
 var fired = true;  //flag for initial event listener
 var keyFired = false; //flag for event listener for letter entry
+var audioWin;
 
 
 // Object
@@ -14,7 +15,7 @@ var hangman = {
     userWins: 0,
     gamesPlayed: 0,
 	//listOfWords: [["MaMDD", "/assets/images/file.jpg"], ["MaMDD", "/assets/images/file.jpg"], ["MaMDD", "/assets/images/file.jpg"], ["MaMDD", "/assets/images/file.jpg"], ["MaMDD","/assets/images/file.jpg"],["MaMDD","/assets/images/file.jpg"]],  // need to add images here too make 2D Array
-	listOfWords: [["broomstick", "assets/images/broomstick.jpg"], ["underworld", "assets/images/underworld.jpg"],["jackolantern", "assets/images/jackolantern.jpg"],["gravestones", "assets/images/broomstick.jpg"],["gravestones", "assets/images/gravestones.jpg"],["tombstones", "assets/images/tombstones.jpg"],["nightmare", "assets/images/nightmare.jpg"],["skeleton", "assets/images/skeleton.jpg"],["trick", "assets/images/trick.jpg"],["treat", "assets/images/treat.jpg"],["witch", "assets/images/witch.jpg"],["pumpkin", "assets/images/pumpkin.jpg"],["witch", "assets/images/witch.jpg"],["candy", "assets/images/candy.jpg"],["ghost", "assets/images/ghost.jpg"]],
+	listOfWords: [["broomstick", "assets/images/broomstick.png"], ["underworld", "assets/images/underworld.png"],["jackolantern", "assets/images/jackolantern.png"],["gravestones", "assets/images/gravestones.png"],["tombstones", "assets/images/tombstones.png"],["nightmare", "assets/images/nightmare.png"],["skeleton", "assets/images/skeleton.png"],["trick", "assets/images/trick.png"],["treat", "assets/images/treat.png"],["witch", "assets/images/witch.png"],["pumpkin", "assets/images/pumpkin.png"],["candy", "assets/images/candy.png"],["ghost", "assets/images/ghost.png"]],
 	currentWord : "",
 	hangmanWord: "",
 
@@ -58,6 +59,8 @@ var hangman = {
 
 	handleUserGuess: function(){
 			if (gameOver){
+				audioWin.pause();
+				audioWin.currentTime = 0;
 				// Put this up here because the game was restarting too soon when I had it below in the win / lose IF
 				hangman.gamesPlayed = hangman.gamesPlayed + 1; //increment the number of games played
 			    //  start a new game
@@ -88,7 +91,7 @@ var hangman = {
 				else{
 					// check to see if letter already guessed
 					if (hangman.lettersGuessed.includes(hangman.userCurrentLetterGuess)){
-						var textValue = "The letter " + hangman.userCurrentLetterGuess + " has alredy been guessed!";
+						var textValue = "The letter " + hangman.userCurrentLetterGuess + " has already been guessed!";
 						removeElement('messages'); //clears any old messages
 						addElement('div', textValue, 'messages', 'msgclass');
 					}
@@ -133,7 +136,8 @@ var hangman = {
 						removeElement('messages'); //clears any old messages
 						addElement('div', 'Great Job - YOU WON!!!', 'messages', 'winmsg');
 						addElement('div', 'Press any key to continue.', 'messages', 'winmsg');
-						
+						audioWin = document.getElementById("myAudio");
+						audioWin.play();
 						hangman.userWins = hangman.userWins + 1;
 						// set gameOver variable
 						gameOver = true;
@@ -147,6 +151,7 @@ var hangman = {
 						gameOver = true;
 						//fired = true;
 						//alert("You Lost! Now for another game!");
+						document.getElementById('picture').src = "assets/images/sadface.png";
 						
 					}
 					
@@ -167,7 +172,9 @@ var hangman = {
 	hangmanWord = "";
 	removeElement('letterPlaceHolder');
 	removeElement('displayAllUserGuess');
+	document.getElementById('picture').src = "assets/images/question.png"
  	hangman.selectNewWord();  //start a new game
+
 
  } // end of resetNewGame function
 	

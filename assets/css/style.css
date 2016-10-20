@@ -18,6 +18,11 @@ h4, h5 {
 #main-display-panel {
 	min-height: 250px;
 }
+.pumpkin {
+	height: 40px;
+	width: 40px;
+	margin: 20px;
+}
 .row {
 	min-height: 25px;
 	height: 30%;
@@ -47,7 +52,7 @@ h4, h5 {
 	float: left;
 }
 .is-hidden-info-message {
-	display: none ; // needs to be set in the program - remove after testing
+	display: none ; 
 }
 .letters {
 	display: inline-block;
@@ -55,9 +60,13 @@ h4, h5 {
 .hangman-letters{
 	width: 100%;
 }
+.hide-img {
+	background-color: white;
+}
 
 @media screen and (max-width: 640px) {
-	.hide-img {
-		display: none;
-	}
+.hide-img {
+	background-color: orange;
+}
+
 }
