@@ -1,9 +1,38 @@
+h4, h5 {
+	color: orange;
+}
 #letterPlaceHolder {
 	height: 30px;
 	width: 100%;
 	/*float: left;*/
 }
+#userCurrentGuess {
+	width: 10%;
+	margin:auto;
+}
 
+#picture {
+	height: 200px;
+	width: 100%;
+}
+#main-display-panel {
+	min-height: 250px;
+}
+.row {
+	min-height: 25px;
+	height: 30%;
+}
+.panel {
+	min-height: 100px;
+}
+.winmsg {
+	font-size: 30px;
+	color: orange;
+}
+.lossmsg {
+	font-size: 30px;
+	color: grey;
+}
 .container-margin {
 	    margin-top: 100px;
 }
@@ -14,9 +43,9 @@
 	border-bottom-style: solid;
 	margin-bottom: 30px;
 }
-/*.is-hidden {
-	display: none ; // needs to be set in the program - remove after testing
-}*/
+.guessed {
+	float: left;
+}
 .is-hidden-info-message {
 	display: none ; // needs to be set in the program - remove after testing
 }
@@ -25,4 +54,10 @@
 }
 .hangman-letters{
 	width: 100%;
+}
+
+@media screen and (max-width: 640px) {
+	.hide-img {
+		display: none;
+	}
 }

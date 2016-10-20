@@ -11,77 +11,94 @@
 <div class="container-fluid text-center margin-underline"><h1 id="hangmanHeading">Halloween Hangman</h1></div> <!-- add some bat animation -->
 <div class="container"> 
 	<div  class="row text-center">
-				<div  id="hideKeyPress">Press Any Key to Begin <br><input type="text" id="startGame"></div>
+		<div  id="hideKeyPress">Press Any Key to Begin <br><!-- <input type="text" id="startGame"> --></div>
     </div>
     <div class="is-hidden row">
-   		<div class="col-md-4 is-hidden">
-		    <div class="panel is-hidden">
-			  <div class="panel-body is-hidden">
-			    <img src="#">
-			  </div>
-			</div>
-			<div class="panel is-hidden">
-			  <div class="panel-body is-hidden">
-				<div class="is-hidden" id="displayAllUserGuess"></div>
-			  </div>
-			</div>
-			
-		</div>
 
     	<div class="col-md-8">
-		    <div class="panel panel-default is-hidden">
-			  <div class="panel-heading is-hidden">Panel heading
+		    <div class="panel panel-default is-hidden" id="main-display-panel">
+			  <div class="panel-heading is-hidden text-center"><h4>Enter Your Guess Here</h4>
 			  </div> <!--end of panel heading -->
 			  <div class="panel-body is-hidden">
 
 				    <div class="row is-hidden"></div>
 				    <div class="row is-hidden">  
 				    	<div class="col-md-6 text-center is-hidden">User Guess</div>
-						<div class="col-md-6 is-hidden">
-							<div class="is-hidden text-center" id="userGuess"><input maxlength="1" type="text" class="is-hidden" id="userCurrentGuess">
+						<div class="col-md-6 text-center is-hidden">
+							<div class="is-hidden text-center" id="userGuess"><input maxlength="1" type="text" class="is-hidden text-center" id="userCurrentGuess">
 						</div>
 						</div>
 				    </div> <!-- end of row -->
+				    <!-- Row for Displayig Hangman and correct letters guessed -->
+					 <div class="row is-hidden"></div>
+					    <div class="row text-center is-hidden">
+						    <div class="hangman-letters is-hidden" id="letterPlaceHolder"></div>
+					    </div> <!-- end of row -->
+
 
 			  </div> <!-- end of panel body -->
 			</div> <!-- end of panel top right -->
-			<div class="panel panel-default is-hidden">
-			  <div class="panel-heading is-hidden">
-			    <h3 class="panel-title is-hidden">Panel primary</h3>
-			  </div>
-			  <div class="panel-body is-hidden">
-			    <div class="row text-center is-hidden">
-						<!-- main input fields for Hangman Chars  - these will be displayed or hidden based on the word length-->
-						<!-- this letterPlaceHolder will hold the __ and letters for the hangman-->
-					 	<div class="hangman-letters is-hidden" id="letterPlaceHolder"></div>
-					</div> <!-- end of row -->
+			 <!-- Panel for Displaying User Guesses -->
+			<div class="panel is-hidden">
+			  <div class="panel-heading is-hidden text-center">
+			  		<h5>Letters Already Guessed</h5>
+			  </div> 
+			  <div class="panel-body is-hidden text-center">
+				<div class="is-hidden text-center" id="displayAllUserGuess"></div>
 			  </div>
 			</div>
-						
-
-
-
-			  		
-
-
+			<div class="panel panel-warning is-hidden-info-message text-center">
+				<div class="panel-body is-hidden-info-message">
+		   			<div class="is-hidden-info-message" id="messages"></div>
+				</div>
+ 			</div>
+		</div> <!-- end of right col -->
+		<div class="col-md-4 is-hidden">
+   		   <div class="panel hide-img">
+			  <div class="panel-body hide-img">
+			    <img class="hide-img" id="picture" src="#" >
+			  </div>
+			</div>
 			<div class="panel is-hidden">
 			  <div class="panel-body is-hidden">
-					<div class="row is-hidden text-center"><div class="col-md-6 userMetrics is-hidden text-center" id="userwins"><p class="is-hidden">User Wins</p><div class="col-md-6 is-hidden text-center" id="currentwins"></div></div></div>
-					<div class="row is-hidden text-center"><div class="col-md-6 userMetrics is-hidden text-center" id="userwins"><p class="is-hidden">Games Played</p>d<div class="col-md-6 is-hidden text-center" id="currentgames"></div></div></div>
-					<div class="row is-hidden text-center"><div class="col-md-6 userMetrics is-hidden text-center" id="remainingguesses"><p class="is-hidden">Guesses Remaining</p><div class="col-md-6 is-hidden text-center" id="guessesleft"></div></div></div>
+					<div class="row is-hidden text-center">
+	  					 <div class="col-md-6 userMetrics is-hidden text-center" id="userwins">
+	  					 	<p class="is-hidden">User Wins</p> 
+	  					 </div>
+	  					 <div class="col-md-6 is-hidden text-center" id="currentwins">
+	  					 </div>	  					
+  					 </div>
+					 <div class="row is-hidden text-center">
+					 	<div class="col-md-6 userMetrics is-hidden text-center" id="userwins">
+					 		<p class="is-hidden">Games Played</p>
+					 	</div>
+					 	<div class="col-md-6 is-hidden text-center" id="currentgames">
+					 	</div>
+					 </div>
+
+					<div class="row is-hidden text-center">
+						<div class="col-md-6 userMetrics is-hidden text-center" id="remainingguesses">
+							<p class="is-hidden">Guesses Left</p>
+						</div>
+
+						<div class="col-md-6 is-hidden text-center" id="guessesleft">
+						</div>
+						
+					</div>
+
+					</div>
 
 
 
+
+				 	</div>
 			  </div>
 			</div>
-		</div> <!-- end of right col -->
+
+
+		</div>
 
 </div> 
-<div class="panel panel-warning is-hidden-info-message">
-	<div class="panel-body is-hidden-info-message">
-		   <div class="is-hidden-info-message" id="messages"></div>
-	</div>
- </div>
 
 <script type="text/javascript" src="assets/javascript/game.js"></script>
 
