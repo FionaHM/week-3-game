@@ -59,7 +59,7 @@ var hangman = {
 	    this.hangmanWord = this.hangmanWord.replace(/[A-Z]/g, "*");  // replaces all the letters with *, to be filled in with correct letters
 		// Format display on the document page based on word length
 		letterPlaceholders(this.currentWord.length,'div', '_____', 'letterPlaceHolder', 'letters');
-		// Change Formatting
+		// // Change Formatting
 		document.getElementById('currentwins').innerHTML = hangman.userWins;
 		document.getElementById('currentgames').innerHTML = hangman.gamesPlayed;
 		document.getElementById('guessesleft').innerHTML = hangman.numberOfGuesses;
@@ -78,7 +78,6 @@ var hangman = {
 					hangman.audioWin.currentTime = 0;
 				}
 				// Put this up here because the game was restarting too soon when I had it below in the win / lose IF
-				hangman.gamesPlayed = hangman.gamesPlayed + 1; //increment the number of games played
 			    //  start a new game
 			    setTimeout(hangman.resetNewGame(), 3000);  // meant to pause before restarting -- not sure it does much
 			    addElement('div', 'Please enter a letter to start!', 'messages', 'msgclass');
@@ -157,6 +156,9 @@ var hangman = {
 						hangman.audioWin = document.getElementById("myAudio");
 						hangman.audioWin.play();
 						hangman.userWins = hangman.userWins + 1;
+						hangman.gamesPlayed = hangman.gamesPlayed + 1; //increment the number of games played
+						document.getElementById('currentwins').innerHTML = hangman.userWins;
+						document.getElementById('currentgames').innerHTML = hangman.gamesPlayed;
 						// set gameOver variable
 						gameOver = true;
 						document.getElementById('picture').src = hangman.listOfWords[itemNumber][1];			
@@ -164,6 +166,9 @@ var hangman = {
 					else if (hangman.numberOfGuesses === 0 ){
 						removeElement('messages'); //clears any old messages
 						addElement('div', 'No Lives Left - Sorry YOU LOST!', 'messages', 'lossmsg');
+						hangman.gamesPlayed = hangman.gamesPlayed + 1; //increment the number of games played
+						document.getElementById('currentwins').innerHTML = hangman.userWins;
+						document.getElementById('currentgames').innerHTML = hangman.gamesPlayed;
 						// set gameOver variable
 						gameOver = true;
 						document.getElementById('picture').src = "assets/images/sadface.png";	
