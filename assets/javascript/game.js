@@ -1,10 +1,9 @@
 // Global Variables
-var modifiedWord = " ";
+// var modifiedWord = " "; moved to object as not used outside it
 var gameOver = false;
 var itemNumber;
 var fired = true;  //flag for initial event listener
-var keyFired = false; //flag for event listener for letter entry
-var audioWin;
+
 
 
 // Object
@@ -14,13 +13,21 @@ var hangman = {
     numberOfGuesses: 15,
     userWins: 0,
     gamesPlayed: 0,
-	//listOfWords: [["MaMDD", "/assets/images/file.jpg"], ["MaMDD", "/assets/images/file.jpg"], ["MaMDD", "/assets/images/file.jpg"], ["MaMDD", "/assets/images/file.jpg"], ["MaMDD","/assets/images/file.jpg"],["MaMDD","/assets/images/file.jpg"]],  // need to add images here too make 2D Array
 	listOfWords: [["broomstick", "assets/images/broomstick.png"], ["underworld", "assets/images/underworld.png"],["jackolantern", "assets/images/jackolantern.png"],["gravestones", "assets/images/gravestones.png"],["tombstones", "assets/images/tombstones.png"],["nightmare", "assets/images/nightmare.png"],["skeleton", "assets/images/skeleton.png"],["trick", "assets/images/trick.png"],["treat", "assets/images/treat.png"],["witch", "assets/images/witch.png"],["pumpkin", "assets/images/pumpkin.png"],["candy", "assets/images/candy.png"],["ghost", "assets/images/ghost.png"]],
 	currentWord : "",
 	hangmanWord: "",
+	audioOn: false,
+	audioWin: "",
+	modifiedWord: "",
 
     
 	init: function(){
+		// console.log(this);
+		// console.log("init function");
+		// the this keyword does not work here - something to do with the Eventhandler...
+		// I looked it up and found an explanation here: http://davidshariff.com/blog/javascript-this-keyword/
+		// " “this” inside of an event handler always refers to the element it was triggered on" '' which is why i think i
+		// have to explicity use the hangman. format instead of this. format here.
 		if (fired === true){
 			// set display = none to hide some of the document elements initially
 			hideElementsById('hideKeyPress');
@@ -39,13 +46,15 @@ var hangman = {
 	},
 
 	selectNewWord: function(){
+		// console.log(this);
+		// console.log("selectNewWord function");
 		// show  - lettersGuessed = 15 initially, userWins = 0
 		//randomly select a word from the list ListOfWords
 		itemNumber = Math.floor(Math.random() * this.listOfWords.length); 
 		// sets the property currentWord 
 		this.currentWord = hangman.listOfWords[itemNumber][0]; 
 		this.currentWord = this.currentWord.toUpperCase();
-	    modifiedWord = this.currentWord;  // working variable that  will be modified as letters are guessed.
+	    this.modifiedWord = this.currentWord;  // working variable that  will be modified as letters are guessed.
 	    this.hangmanWord = this.currentWord;  // set equal to get correct word length for formatting
 	    this.hangmanWord = this.hangmanWord.replace(/[A-Z]/g, "*");  // replaces all the letters with *, to be filled in with correct letters
 		// Format display on the document page based on word length
@@ -58,14 +67,21 @@ var hangman = {
 	},
 
 	handleUserGuess: function(){
+			// console.log(this);
+			// console.log("handleUserGuess function");
+			// the this keyword does not work here - again something to do with the Eventhandler per above...
 			if (gameOver){
-				audioWin.pause();
-				audioWin.currentTime = 0;
+				// need to reset audio if it was playing - without IF loop it will give an error
+				if (hangman.audioOn) {
+					hangman.audioOn = false;
+					hangman.audioWin.pause();
+					hangman.audioWin.currentTime = 0;
+				}
 				// Put this up here because the game was restarting too soon when I had it below in the win / lose IF
 				hangman.gamesPlayed = hangman.gamesPlayed + 1; //increment the number of games played
 			    //  start a new game
 			    setTimeout(hangman.resetNewGame(), 3000);  // meant to pause before restarting -- not sure it does much
-			    removeElement('messages'); //clears any old messages
+			    addElement('div', 'Please enter a letter to start!', 'messages', 'msgclass');
 			} 
 			else {
 				// display initial message
@@ -96,7 +112,7 @@ var hangman = {
 						addElement('div', textValue, 'messages', 'msgclass');
 					}
 					// check to see if the guess is in the currentWord
-					else if (modifiedWord.includes(hangman.userCurrentLetterGuess)){
+					else if (hangman.modifiedWord.includes(hangman.userCurrentLetterGuess)){
 						removeElement('messages'); //clears any old messages
 						// add message to div id = messages
 						addElement('div', 'Correct Guess!', 'messages', 'msgclass');
@@ -105,15 +121,15 @@ var hangman = {
 						//	add this letter to the display list on DOM all the letters guessed so far
 						addElement('div',hangman.userCurrentLetterGuess, 'displayAllUserGuess', 'guessed'); 
 						// there might be more that one instance of this letter in the word so they all need to be found and put in correct place
-						while (modifiedWord.includes(hangman.userCurrentLetterGuess)){
+						while (hangman.modifiedWord.includes(hangman.userCurrentLetterGuess)){
 						    //try to find the position of the current letter in the current word
-						    var indexNumWord = modifiedWord.indexOf(hangman.userCurrentLetterGuess);  
+						    var indexNumWord = hangman.modifiedWord.indexOf(hangman.userCurrentLetterGuess);  
 						    // add the letter to the correct place in the word
 					        document.getElementById('letterPlaceHolder').childNodes[indexNumWord].innerHTML = hangman.userCurrentLetterGuess;
 							// add this to the hangmanWord
 						    hangman.hangmanWord  = hangman.hangmanWord.slice(0, indexNumWord) + hangman.userCurrentLetterGuess + hangman.hangmanWord.slice(indexNumWord+1, hangman.hangmanWord.length);
 						    //starts at 0 - replace letters with "*" to preserve index location of letters
-						    modifiedWord = modifiedWord.slice(0, indexNumWord) + "*" + modifiedWord.slice(indexNumWord+1, hangman.currentWord.length);
+						    hangman.modifiedWord = hangman.modifiedWord.slice(0, indexNumWord) + "*" + hangman.modifiedWord.slice(indexNumWord+1, hangman.currentWord.length);
 						   
 					   	}  // end of inner while
 					}
@@ -135,30 +151,25 @@ var hangman = {
 					if ( hangman.currentWord === hangman.hangmanWord) {
 						removeElement('messages'); //clears any old messages
 						addElement('div', 'Great Job - YOU WON!!!', 'messages', 'winmsg');
-						addElement('div', 'Press any key to continue.', 'messages', 'winmsg');
-						audioWin = document.getElementById("myAudio");
-						audioWin.play();
+						addElement('div', 'Press Enter to continue.', 'messages', 'winmsg');
+						document.getElementById('userCurrentGuess').focus();	
+						hangman.audioOn = true;
+						hangman.audioWin = document.getElementById("myAudio");
+						hangman.audioWin.play();
 						hangman.userWins = hangman.userWins + 1;
 						// set gameOver variable
 						gameOver = true;
-						document.getElementById('picture').src = hangman.listOfWords[itemNumber][1];
-						
+						document.getElementById('picture').src = hangman.listOfWords[itemNumber][1];			
 					} 
 					else if (hangman.numberOfGuesses === 0 ){
 						removeElement('messages'); //clears any old messages
 						addElement('div', 'No Lives Left - Sorry YOU LOST!', 'messages', 'lossmsg');
 						// set gameOver variable
 						gameOver = true;
-						//fired = true;
-						//alert("You Lost! Now for another game!");
-						document.getElementById('picture').src = "assets/images/sadface.png";
-						
+						document.getElementById('picture').src = "assets/images/sadface.png";	
 					}
-					
-
-				} // end of main if loop
-				
-		} // end of gameover check loop
+				} // end of main else loop		
+			}// end of gameover check loop
 	}, // end of handleUserGuess function
 
  resetNewGame: function(){
@@ -180,7 +191,7 @@ var hangman = {
 	
 }  // end of hangman object its properties and its functions
 
-//Global DOM functions start here.
+// Other functions start here.
 
 // to hide elements by ID 
 function hideElementsById(text){
@@ -200,7 +211,6 @@ function changeElementsByClassName(text, textvalue){
           classHideElem[i].style.display = textvalue;
     }
 }
-
 
 // to display input places for hangman letters 
 function letterPlaceholders(maxlength, elem, text, elemById, newclass){
@@ -238,17 +248,11 @@ function removeElement(parent1) {
 
 // called when the document loads - hides relevant content
 function initialiseFormat(){
-
-	// hideElementsById("userCurrentGuess");
-	// hideElementsById("userGuess");
-	//hideElementsById("hangmanHeading");
 	changeElementsByClassName('is-hidden', 'none');	
 	changeElementsByClassName('hide-img', 'none');
-
-
 }
 
-// Hide Elements that will appear later and set up the page  - call initialiseFormat() function
+        // Hide Elements that will appear later and set up the page  - call initialiseFormat() function
 		document.body.onload = initialiseFormat;
 		
 		
@@ -256,17 +260,14 @@ function initialiseFormat(){
 
 		//document.getElementById("startGame").focus();
 		//document.getElementById("startGame").addEventListener("keydown", hangman.init);
-		// for intial keydown event - don't want it to fire again
-		console.log("00 " + keyFired);
+		// for initial keydown event - don't want it to be called again
+	
 		if (fired){
 			document.body.addEventListener('keydown', hangman.init);
-			keyFired = true;
 		}
-		console.log("1 " + keyFired);
-		if (keyFired){
-			// listens for letters
-			document.getElementById("userCurrentGuess").addEventListener("keyup", hangman.handleUserGuess);
-		}
+		
+		document.getElementById("userCurrentGuess").addEventListener("keyup", hangman.handleUserGuess);
+	
 		
 
 		
